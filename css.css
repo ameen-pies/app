@@ -1,7 +1,7 @@
-/* 🎀 Cute & Modern Form Styling 🎀 */
+/* 🌊 Fresh Blue-Green Form Styling 🌿 */
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    background: linear-gradient(135deg, #6dd5ed, #2193b0);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +13,7 @@ body {
 
 /* Container */
 .container {
-    background: #fff;
+    background: #ffffff;
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
@@ -30,12 +30,20 @@ body {
     transform: scale(1.02);
 }
 
-/* Heading */
-h2 {
-    color: #444;
-    font-size: 26px;
-    margin-bottom: 20px;
+/* Register Heading */
+h1 {
+    color: #136a8a;
+    font-size: 32px;
     font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Subheading */
+h2 {
+    color: #136a8a;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: normal;
 }
 
 /* Form Layout */
@@ -52,7 +60,7 @@ input {
     max-width: 350px;
     padding: 12px;
     margin: 10px 0;
-    border: 2px solid #ff85a2;
+    border: 2px solid #1e9ebb;
     border-radius: 12px;
     font-size: 16px;
     transition: all 0.3s ease;
@@ -60,9 +68,9 @@ input {
 }
 
 input:focus {
-    border-color: #ff6188;
+    border-color: #136a8a;
     outline: none;
-    box-shadow: 0px 0px 10px rgba(255, 97, 136, 0.5);
+    box-shadow: 0px 0px 10px rgba(19, 106, 138, 0.5);
 }
 
 /* Submit Button */
@@ -70,7 +78,7 @@ button {
     width: 100%;
     max-width: 350px;
     padding: 12px;
-    background: #ff85a2;
+    background: #1e9ebb;
     color: white;
     border: none;
     border-radius: 12px;
@@ -78,12 +86,12 @@ button {
     font-size: 18px;
     font-weight: bold;
     transition: 0.3s;
-    box-shadow: 0px 5px 15px rgba(255, 97, 136, 0.3);
+    box-shadow: 0px 5px 15px rgba(30, 158, 187, 0.3);
     margin-top: 15px;
 }
 
 button:hover {
-    background: #ff6188;
+    background: #136a8a;
     transform: translateY(-2px);
 }
 
