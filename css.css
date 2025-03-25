@@ -1,48 +1,90 @@
-/* 🎀 Cute Form Styling 🎀 */
+/* 🎀 Cute & Modern Form Styling 🎀 */
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-}
-
-.container {
-    background: white;
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 300px;
+    animation: fadeIn 1s ease-in-out;
 }
 
+/* Container */
+.container {
+    background: #fff;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 350px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.container:hover {
+    transform: scale(1.02);
+}
+
+/* Heading */
 h2 {
     color: #444;
+    font-size: 24px;
+    margin-bottom: 15px;
 }
 
+/* Input Fields */
 input {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 2px solid #ddd;
-    border-radius: 10px;
+    padding: 12px;
+    margin: 8px 0;
+    border: 2px solid #ff85a2;
+    border-radius: 12px;
     font-size: 16px;
+    transition: all 0.3s ease;
 }
 
+input:focus {
+    border-color: #ff6188;
+    outline: none;
+    box-shadow: 0px 0px 10px rgba(255, 97, 136, 0.5);
+}
+
+/* Submit Button */
 button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background: #ff85a2;
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
     font-size: 18px;
+    font-weight: bold;
     transition: 0.3s;
+    box-shadow: 0px 5px 15px rgba(255, 97, 136, 0.3);
 }
 
 button:hover {
     background: #ff6188;
+    transform: translateY(-2px);
+}
+
+/* Add Soft Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+    .container {
+        width: 90%;
+    }
 }
