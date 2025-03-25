@@ -4,31 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
-    <link rel="stylesheet" href="css.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h2>Register</h2>
-    <form id="userForm">
-        <input type="text" id="name" placeholder="Name" required><br>
-        <input type="email" id="email" placeholder="Email" required><br>
-        <input type="password" id="password" placeholder="Password" required><br>
-        <button type="submit">Submit</button>
-    </form>
+<body class="bg-gradient-to-br from-blue-500 to-green-500 min-h-screen flex items-center justify-center">
+
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-2xl font-bold text-center text-blue-600">Register User</h2>
+
+        <form id="registerForm" class="mt-4">
+            <div>
+                <label class="block text-gray-700">Username:</label>
+                <input type="text" id="username" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            </div>
+
+            <div class="mt-2">
+                <label class="block text-gray-700">Email:</label>
+                <input type="email" id="email" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded mt-4 hover:bg-blue-700">
+                Register
+            </button>
+        </form>
+
+        <h3 class="text-xl font-semibold mt-6 text-green-600">Registered Users</h3>
+        <ul id="usersList" class="mt-2 space-y-2"></ul>
+    </div>
+
     <script>
-        document.getElementById("userForm").addEventListener("submit", async function(event) {
-            event.preventDefault();
-            let user = {
-                name: document.getElementById("name").value,
-                email: document.getElementById("email").value,
-                password: document.getElementById("password").value
-            };
-            let response = await fetch("/api/register", {
+        const apiBaseUrl = "https://YOUR_FUNCTION_URL_HERE/api"; // Replace with your function URL
+
+        document.getElementById("registerForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+
+            const response = await fetch(`${apiBaseUrl}/registerUser`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(user)
+                body: JSON.stringify({ username, email })
             });
-            alert("User Registered!");
+
+            if (response.ok) {
+                alert("User registered successfully!");
+                document.getElementById("registerForm").reset();
+                fetchUsers();
+            } else {
+                alert("Failed to register user.");
+            }
         });
+
+        async function fetchUsers() {
+            const response = await fetch(`${apiBaseUrl}/getUsers`);
+            const users = await response.json();
+
+            const usersList = document.getElementById("usersList");
+            usersList.innerHTML = "";
+
+            users.forEach(user => {
+                const li = document.createElement("li");
+                li.className = "p-2 bg-gray-100 rounded";
+                li.textContent = `${user.username} - ${user.email}`;
+                usersList.appendChild(li);
+            });
+        }
+
+        fetchUsers();
     </script>
 </body>
 </html>
