@@ -43,21 +43,21 @@
     </div>
 
     <script>
-        // URL for inserting new user (Logic App for adding users)
-        const insertUserUrl = "https://prod-28.northcentralus.logic.azure.com:443/workflows/caa7fbc5cdbe41e5bc36375bf62d618d/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=W4e0FSlwVg8qXRRsXEq58eQxsJdInGjdKgkGq7u-nBY"; 
-
+        const logicAppUrl = "https://prod-28.northcentralus.logic.azure.com:443/workflows/caa7fbc5cdbe41e5bc36375bf62d618d/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=W4e0FSlwVg8qXRRsXEq58eQxsJdInGjdKgkGq7u-nBY";
+        const fetchUsersUrl = "https://prod-27.northcentralus.logic.azure.com:443/workflows/32d38543957748fa81bb84822f07083f/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=rqg8A52D9_1mlxHdrkf85UsERSOdNVUf0xzWXTwT_hU";
+        
         document.getElementById("userForm").addEventListener("submit", async function(event) {
             event.preventDefault();
 
             const userData = {
-                RowKey: new Date().getTime().toString(), // Unique ID
+                RowKey: new Date().getTime().toString(),
                 Name: document.getElementById("name").value,
                 Email: document.getElementById("email").value,
-                Password: document.getElementById("password").value // Store passwords securely!
+                Password: document.getElementById("password").value
             };
 
             try {
-                const response = await fetch(insertUserUrl, {
+                const response = await fetch(logicAppUrl, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(userData)
@@ -78,27 +78,31 @@
             }
         });
 
-        // URL for fetching users (Logic App for retrieving user list)
-        const fetchUsersUrl = "https://prod-27.northcentralus.logic.azure.com:443/workflows/32d38543957748fa81bb84822f07083f/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=rqg8A52D9_1mlxHdrkf85UsERSOdNVUf0xzWXTwT_hU"; 
-
         document.getElementById("refreshUsersBtn").addEventListener("click", async function() {
             try {
                 const response = await fetch(fetchUsersUrl, {
                     method: "GET",
-                    headers: { "Accept": "application/json" } // Ensure we get JSON
+                    headers: { "Accept": "application/json" }
                 });
 
+                console.log("Raw response:", response);
+
+                if (!response.ok) {
+                    console.error("API Error:", response.status, response.statusText);
+                    throw new Error(`API request failed: ${response.status}`);
+                }
+
                 const data = await response.json();
-                console.log("Response Data:", data); // Debugging output
+                console.log("Response Data:", data);
 
                 if (!data || !data.value || !Array.isArray(data.value)) {
                     console.error("Unexpected response format:", data);
-                    document.getElementById("usersTableBody").innerHTML = "<tr><td colspan='2'>No data found</td></tr>";
+                    document.getElementById("usersTableBody").innerHTML = "<tr><td colspan='2'>No valid data found</td></tr>";
                     return;
                 }
 
                 const usersTableBody = document.getElementById("usersTableBody");
-                usersTableBody.innerHTML = ""; // Clear previous data
+                usersTableBody.innerHTML = "";
 
                 data.value.forEach(user => {
                     const row = `<tr>
@@ -107,7 +111,6 @@
                                 </tr>`;
                     usersTableBody.innerHTML += row;
                 });
-
             } catch (error) {
                 console.error("Error fetching users:", error);
                 document.getElementById("usersTableBody").innerHTML = "<tr><td colspan='2'>Error loading data</td></tr>";
