@@ -1,4 +1,5 @@
-const API_URL = "https://funcv-evaadtgwekctbkha.eastus-01.azurewebsites.net/api/CosmosApi";
+const API_URL = "https://funcv-evaadtgwekctbkha.eastus-01.azurewebsites.net/api/CosmosApi?code=i8a60X6Xub6EjyHPSQCBcbChSaEiysH5DCOt91Uz_mDQAzFuWAXTKQ==";
+
 
 // Function to send data to Cosmos DB
 document.getElementById("dataForm").addEventListener("submit", async (e) => {
