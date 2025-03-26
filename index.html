@@ -3,87 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Vintage Cosmos App</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gradient-to-br from-blue-500 to-green-500 min-h-screen flex items-center justify-center">
-
-    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h2 class="text-2xl font-bold text-center text-blue-600">Register User</h2>
-
-        <form id="registerForm" class="mt-4">
-            <div>
-                <label class="block text-gray-700">Username:</label>
-                <input type="text" id="username" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-            </div>
-
-            <div class="mt-2">
-                <label class="block text-gray-700">Email:</label>
-                <input type="email" id="email" class="w-full p-2 border border-gray-300 rounded mt-1" required>
-            </div>
-
-            <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded mt-4 hover:bg-blue-700">
-                Register
-            </button>
+<body>
+    <div class="container">
+        <h1>Welcome to the Vintage Cosmos App</h1>
+        <p>Enter data to store in Cosmos DB:</p>
+        <form id="dataForm">
+            <input type="text" id="dataInput" placeholder="Enter data...">
+            <button type="submit">Submit</button>
         </form>
-
-        <h3 class="text-xl font-semibold mt-6 text-green-600">Registered Users</h3>
-        <ul id="usersList" class="mt-2 space-y-2"></ul>
+        <p>Fetching data from Cosmos DB...</p>
+        <button id="fetchData">Load Data</button>
+        <ul id="dataList"></ul>
     </div>
-
-    <script>
-        const apiBaseUrl = "https://your-azure-function-url.azurewebsites.net/api"; // ✅ Replace with actual function URL
-
-        document.getElementById("registerForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            
-            const username = document.getElementById("username").value;
-            const email = document.getElementById("email").value;
-
-            try {
-                const response = await fetch(`${apiBaseUrl}/registeruser`, { // ✅ Ensure correct endpoint name
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ username, email })
-                });
-
-                const result = await response.json();
-                
-                if (response.ok) {
-                    alert(result.message || "User registered successfully!");
-                    document.getElementById("registerForm").reset();
-                    fetchUsers();
-                } else {
-                    alert(result.error || "Failed to register user.");
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                alert("Something went wrong. Check console.");
-            }
-        });
-
-        async function fetchUsers() {
-            try {
-                const response = await fetch(`${apiBaseUrl}/getUsers`);
-                
-                if (!response.ok) throw new Error("Failed to fetch users.");
-                
-                const users = await response.json();
-                const usersList = document.getElementById("usersList");
-                usersList.innerHTML = "";
-
-                users.forEach(user => {
-                    const li = document.createElement("li");
-                    li.className = "p-2 bg-gray-100 rounded";
-                    li.textContent = `${user.username} - ${user.email}`;
-                    usersList.appendChild(li);
-                });
-            } catch (error) {
-                console.error("Error fetching users:", error);
-            }
-        }
-
-        // fetchUsers(); // Uncomment this when `/getUsers` function is ready
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

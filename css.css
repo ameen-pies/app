@@ -1,120 +1,62 @@
-/* 🌊 Fresh Blue-Green Form Styling 🌿 */
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #6dd5ed, #2193b0);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    font-family: 'Georgia', serif;
+    background-color: #f5f5dc;
+    color: #4a3f35;
+    text-align: center;
     margin: 0;
-    padding: 20px;
-    animation: fadeIn 1s ease-in-out;
+    padding: 0;
 }
 
-/* Container */
 .container {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
-    text-align: center;
-    width: 100%;
-    max-width: 400px;
-    transition: transform 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    max-width: 600px;
+    margin: 50px auto;
+    background: #fff8e7;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    border: 2px solid #c4a484;
 }
 
-.container:hover {
-    transform: scale(1.02);
-}
-
-/* Register Heading */
 h1 {
-    color: #136a8a;
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-/* Subheading */
-h2 {
-    color: #136a8a;
     font-size: 24px;
-    margin-bottom: 20px;
-    font-weight: normal;
+    color: #5a4632;
+    border-bottom: 2px solid #c4a484;
+    padding-bottom: 10px;
 }
 
-/* Form Layout */
 form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin: 20px 0;
 }
 
-/* Input Fields */
 input {
-    width: 100%;
-    max-width: 350px;
-    padding: 12px;
-    margin: 10px 0;
-    border: 2px solid #1e9ebb;
-    border-radius: 12px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    text-align: center;
+    padding: 10px;
+    border: 1px solid #c4a484;
+    border-radius: 5px;
+    width: 70%;
 }
 
-input:focus {
-    border-color: #136a8a;
-    outline: none;
-    box-shadow: 0px 0px 10px rgba(19, 106, 138, 0.5);
-}
-
-/* Submit Button */
 button {
-    width: 100%;
-    max-width: 350px;
-    padding: 12px;
-    background: #1e9ebb;
+    background-color: #c4a484;
     color: white;
     border: none;
-    border-radius: 12px;
+    padding: 10px 15px;
     cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
-    transition: 0.3s;
-    box-shadow: 0px 5px 15px rgba(30, 158, 187, 0.3);
-    margin-top: 15px;
+    border-radius: 5px;
+    margin-top: 10px;
 }
 
 button:hover {
-    background: #136a8a;
-    transform: translateY(-2px);
+    background-color: #a3836d;
 }
 
-/* Add Soft Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-/* Responsive Design */
-@media (max-width: 450px) {
-    .container {
-        width: 90%;
-        padding: 20px;
-    }
-    
-    input, button {
-        max-width: 100%;
-    }
+li {
+    background: #e7d3b2;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
 }
