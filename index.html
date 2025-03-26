@@ -77,10 +77,10 @@
             }
         });
         document.getElementById("refreshUsersBtn").addEventListener("click", async function() {
-            const logicAppUrl = "https://prod-28.northcentralus.logic.azure.com:443/workflows/caa7fbc5cdbe41e5bc36375bf62d618d/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=W4e0FSlwVg8qXRRsXEq58eQxsJdInGjdKgkGq7u-nBY"; // Replace with actual URL
+            const logicAppUrl1 = "https://prod-27.northcentralus.logic.azure.com:443/workflows/32d38543957748fa81bb84822f07083f/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=rqg8A52D9_1mlxHdrkf85UsERSOdNVUf0xzWXTwT_hU"; // Replace with actual URL
 
             try {
-                const response = await fetch(logicAppUrl);
+                const response = await fetch(logicAppUrl1);
                 const users = await response.json(); // Convert response to JSON
 
                 const usersTableBody = document.getElementById("usersTableBody");
