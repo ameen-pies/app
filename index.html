@@ -32,7 +32,7 @@
     </div>
 
     <script>
-        const apiBaseUrl = "https://YOUR_FUNCTION_URL_HERE/api"; // Replace with your function URL
+        const apiBaseUrl = "https://your-azure-function-url.azurewebsites.net/api"; // ✅ Replace with actual function URL
 
         document.getElementById("registerForm").addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -40,37 +40,50 @@
             const username = document.getElementById("username").value;
             const email = document.getElementById("email").value;
 
-            const response = await fetch(`${apiBaseUrl}/registerUser`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, email })
-            });
+            try {
+                const response = await fetch(`${apiBaseUrl}/registeruser`, { // ✅ Ensure correct endpoint name
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, email })
+                });
 
-            if (response.ok) {
-                alert("User registered successfully!");
-                document.getElementById("registerForm").reset();
-                fetchUsers();
-            } else {
-                alert("Failed to register user.");
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert(result.message || "User registered successfully!");
+                    document.getElementById("registerForm").reset();
+                    fetchUsers();
+                } else {
+                    alert(result.error || "Failed to register user.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Something went wrong. Check console.");
             }
         });
 
         async function fetchUsers() {
-            const response = await fetch(`${apiBaseUrl}/getUsers`);
-            const users = await response.json();
+            try {
+                const response = await fetch(`${apiBaseUrl}/getUsers`);
+                
+                if (!response.ok) throw new Error("Failed to fetch users.");
+                
+                const users = await response.json();
+                const usersList = document.getElementById("usersList");
+                usersList.innerHTML = "";
 
-            const usersList = document.getElementById("usersList");
-            usersList.innerHTML = "";
-
-            users.forEach(user => {
-                const li = document.createElement("li");
-                li.className = "p-2 bg-gray-100 rounded";
-                li.textContent = `${user.username} - ${user.email}`;
-                usersList.appendChild(li);
-            });
+                users.forEach(user => {
+                    const li = document.createElement("li");
+                    li.className = "p-2 bg-gray-100 rounded";
+                    li.textContent = `${user.username} - ${user.email}`;
+                    usersList.appendChild(li);
+                });
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
         }
 
-        fetchUsers();
+        // fetchUsers(); // Uncomment this when `/getUsers` function is ready
     </script>
 </body>
 </html>
