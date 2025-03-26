@@ -1,158 +1,95 @@
+/* General Styling */
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: #f4f4f4;
     margin: 0;
-    background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
-    background-attachment: fixed;
 }
 
+/* Container for the form */
 .container {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 
-        0 4px 20px rgba(0, 0, 0, 0.1),
-        0 0 0 1px rgba(0, 150, 136, 0.3);
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 90%;
     max-width: 350px;
-    border: 1px solid rgba(0, 150, 136, 0.2);
-    position: relative;
-    overflow: hidden;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
-.container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 8px;
-    background: linear-gradient(90deg, #128C7E 0%, #25D366 50%, #128C7E 100%);
-}
-
+/* Heading */
 h2 {
-    margin-bottom: 25px;
-    color: #075E54;
-    font-weight: 300;
-    font-size: 24px;
-    letter-spacing: 0.5px;
-}
-
-ol {
-    text-align: left;
-    padding-left: 20px;
-    color: #555;
-    line-height: 1.6;
-}
-
-li {
     margin-bottom: 15px;
-    position: relative;
+    color: #333;
 }
 
-li::before {
-    content: '';
-    position: absolute;
-    left: -20px;
-    top: 8px;
-    width: 8px;
-    height: 8px;
-    background: #128C7E;
-    border-radius: 50%;
+/* Input Fields */
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease-in-out;
 }
 
-strong {
-    color: #128C7E;
-    font-weight: 600;
+/* Input Focus Effect */
+input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
 }
 
+/* Submit Button */
 button {
     width: 100%;
-    padding: 14px;
-    background: linear-gradient(to bottom, #25D366, #128C7E);
+    padding: 12px;
+    background: #007bff;
     color: white;
     border: none;
-    border-radius: 25px;
-    cursor: pointer;
+    border-radius: 5px;
     font-size: 16px;
-    transition: all 0.3s ease;
-    margin-top: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    letter-spacing: 0.5px;
-    position: relative;
-    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s;
 }
 
+/* Button Hover & Click Effects */
 button:hover {
-    background: linear-gradient(to bottom, #128C7E, #075E54);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+    background: #0056b3;
 }
 
 button:active {
-    transform: translateY(0);
+    transform: scale(0.98);
 }
 
-button::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -60%;
-    width: 200%;
-    height: 200%;
-    background: rgba(255, 255, 255, 0.1);
-    transform: rotate(30deg);
-    transition: all 0.3s;
+/* Message Display */
+#message {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 14px;
 }
 
-button:hover::after {
-    left: 100%;
-}
-
-/* Vintage paper texture effect */
-.container {
-    background-image: 
-        linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
-        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%23ddd" stroke-width="0.5" opacity="0.3"/></svg>');
-}
-
-/* Fade-in animation with vintage feel */
-.container {
-    animation: vintageFadeIn 0.8s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-}
-
-@keyframes vintageFadeIn {
+/* Animations */
+@keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(-20px) scale(0.95);
-        filter: sepia(0.5);
+        transform: translateY(-10px);
     }
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: sepia(0);
+        transform: translateY(0);
     }
 }
 
-/* QR code placeholder styling */
-.qr-placeholder {
-    width: 200px;
-    height: 200px;
-    margin: 20px auto;
-    background: 
-        linear-gradient(45deg, #eee 25%, transparent 25%) -50px 0,
-        linear-gradient(-45deg, #eee 25%, transparent 25%) -50px 0,
-        linear-gradient(45deg, transparent 75%, #eee 75%),
-        linear-gradient(-45deg, transparent 75%, #eee 75%);
-    background-size: 100px 100px;
-    border: 1px dashed #128C7E;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #128C7E;
-    font-style: italic;
+/* Responsive Tweaks */
+@media (max-width: 400px) {
+    .container {
+        padding: 20px;
+        max-width: 300px;
+    }
 }
