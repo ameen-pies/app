@@ -3,57 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management</title>
+    <title>User Registration</title>
     <link rel="stylesheet" href="css.css">
 </head>
 <body>
     <div class="container">
-        <h2>User Management</h2>
-        
-        <!-- Registration Section -->
-        <div class="form-section">
-            <h3>Register New User</h3>
-            <form id="userForm">
-                <input type="text" id="name" placeholder="Name" required>
-                <input type="email" id="email" placeholder="Email" required>
-                <input type="password" id="password" placeholder="Password" required>
-                <button type="submit">Submit</button>
-            </form>
-            <p id="message"></p>
-        </div>
-        
-        <!-- Existing Users Section -->
-        <div class="form-section">
-            <h3>Existing Users</h3>
-            <button id="refreshUsersBtn">Refresh User List</button>
-            <div id="usersListContainer">
-                <table id="usersTable">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                        </tr>
-                    </thead>
-                    <tbody id="usersTableBody">
-                        <!-- Users will be populated here -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <h2>Register</h2>
+        <form id="userForm">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Submit</button>
+        </form>
+        <p id="message"></p>
     </div>
 
     <script>
-        const logicAppUrl = "https://prod-28.northcentralus.logic.azure.com:443/workflows/caa7fbc5cdbe41e5bc36375bf62d618d/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=W4e0FSlwVg8qXRRsXEq58eQxsJdInGjdKgkGq7u-nBY";
-        const fetchUsersUrl = "https://prod-27.northcentralus.logic.azure.com:443/workflows/32d38543957748fa81bb84822f07083f/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=rqg8A52D9_1mlxHdrkf85UsERSOdNVUf0xzWXTwT_hU";
-        
+        const logicAppUrl = "https://prod-28.northcentralus.logic.azure.com:443/workflows/caa7fbc5cdbe41e5bc36375bf62d618d/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=W4e0FSlwVg8qXRRsXEq58eQxsJdInGjdKgkGq7u-nBY"; // Replace with actual Logic App URL
+
         document.getElementById("userForm").addEventListener("submit", async function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Prevent default form submission
 
             const userData = {
-                RowKey: new Date().getTime().toString(),
+                RowKey: new Date().getTime().toString(), // Unique identifier
                 Name: document.getElementById("name").value,
                 Email: document.getElementById("email").value,
-                Password: document.getElementById("password").value
+                Password: document.getElementById("password").value // Include password if required
             };
 
             try {
@@ -75,45 +50,6 @@
             } catch (error) {
                 console.error("Request failed", error);
                 document.getElementById("message").textContent = "❌ Network error!";
-            }
-        });
-
-        document.getElementById("refreshUsersBtn").addEventListener("click", async function() {
-            try {
-                const response = await fetch(fetchUsersUrl, {
-                    method: "GET",
-                    headers: { "Accept": "application/json" }
-                });
-
-                console.log("Raw response:", response);
-
-                if (!response.ok) {
-                    console.error("API Error:", response.status, response.statusText);
-                    throw new Error(`API request failed: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log("Response Data:", data);
-
-                if (!data || !data.value || !Array.isArray(data.value)) {
-                    console.error("Unexpected response format:", data);
-                    document.getElementById("usersTableBody").innerHTML = "<tr><td colspan='2'>No valid data found</td></tr>";
-                    return;
-                }
-
-                const usersTableBody = document.getElementById("usersTableBody");
-                usersTableBody.innerHTML = "";
-
-                data.value.forEach(user => {
-                    const row = `<tr>
-                                    <td>${user.Name || "N/A"}</td>
-                                    <td>${user.Email || "N/A"}</td>
-                                </tr>`;
-                    usersTableBody.innerHTML += row;
-                });
-            } catch (error) {
-                console.error("Error fetching users:", error);
-                document.getElementById("usersTableBody").innerHTML = "<tr><td colspan='2'>Error loading data</td></tr>";
             }
         });
     </script>
