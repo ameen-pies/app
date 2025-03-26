@@ -3,45 +3,38 @@ const API_URL = "https://funcv-evaadtgwekctbkha.eastus-01.azurewebsites.net/api/
 // Function to send data to Cosmos DB
 document.getElementById("dataForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    const inputData = document.getElementById("dataInput").value.trim();
+    const inputData = document.getElementById("dataInput").value;
 
-    if (!inputData) {
-        alert("Please enter some data.");
-        return;
-    }
+    // Sending the data to the Azure Function
+    const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: Date.now().toString(), text: inputData })
+    });
 
-    try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: inputData }) // ID is now set server-side
-        });
-
-        if (!response.ok) throw new Error(`Server responded with ${response.status}`);
-
+    // Check if the response is OK (status code 200)
+    if (response.ok) {
         alert("Data saved successfully!");
-        document.getElementById("dataInput").value = "";
-    } catch (error) {
-        alert("Failed to save data: " + error.message);
+        document.getElementById("dataInput").value = ""; // Clear the input field
+    } else {
+        alert("Failed to save data.");
     }
 });
 
 // Function to fetch data from Cosmos DB
 document.getElementById("fetchData").addEventListener("click", async () => {
-    try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error(`Server responded with ${response.status}`);
+    // Fetching data from the Azure Function
+    const response = await fetch(API_URL);
+    const data = await response.json();
 
-        const data = await response.json();
-        const dataList = document.getElementById("dataList");
-        dataList.innerHTML = "";
+    // Display the fetched data on the page
+    const dataList = document.getElementById("dataList");
+    dataList.innerHTML = ""; // Clear the existing list
 
-        data.forEach(item => {
-            const li = document.createElement("li");
-            li.textContent = item.text;
-            dataList.appendChild(li);
-        });
-    } catch (error) {
-        alert("Failed to fetch data: " + error.message);
-    }
+    // Loop through each item and create an li element to display
+    data.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item.text; // Display the text from the database
+        dataList.appendChild(li);
+    });
 });
