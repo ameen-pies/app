@@ -1,4 +1,4 @@
-const API_URL = "https://funcv-evaadtgwekctbkha.eastus-01.azurewebsites.net/api/CosmosApi";
+const API_URL = "https://funcv-evaadtgwekctbkha.eastus-01.azurewebsites.net/api/CosmosApi?";
 
 // ✅ Ensure correct request format for saving data
 document.getElementById("dataForm").addEventListener("submit", async (e) => {
