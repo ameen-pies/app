@@ -5,20 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vintage Cosmos App</title>
     <link rel="stylesheet" href="css.css">
-    <script src="js.js"></script>
+    <script defer src="js.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>Welcome to the Vintage Cosmos App</h1>
         <p>Enter data to store in Cosmos DB:</p>
         <form id="dataForm">
-            <input type="text" id="dataInput" placeholder="Enter data...">
+            <input type="text" id="dataInput" placeholder="Enter data..." required>
             <button type="submit">Submit</button>
         </form>
         <p>Fetching data from Cosmos DB...</p>
         <button id="fetchData">Load Data</button>
         <ul id="dataList"></ul>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
