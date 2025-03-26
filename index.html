@@ -19,32 +19,39 @@
     </div>
 
     <script>
-       const logicAppUrl = "https://YOUR_LOGIC_APP_URL"; // Replace with actual Logic App URL
+        const logicAppUrl = "https://YOUR_LOGIC_APP_URL"; // Replace with actual Logic App URL
 
-async function sendData() {
-    const userData = {
-        RowKey: new Date().getTime().toString(), // Unique identifier
-        Name: document.getElementById("name").value,
-        Email: document.getElementById("email").value
-    };
+        document.getElementById("userForm").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Prevent default form submission
 
-    try {
-        const response = await fetch(logicAppUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(userData)
+            const userData = {
+                RowKey: new Date().getTime().toString(), // Unique identifier
+                Name: document.getElementById("name").value,
+                Email: document.getElementById("email").value,
+                Password: document.getElementById("password").value // Include password if required
+            };
+
+            try {
+                const response = await fetch(logicAppUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(userData)
+                });
+
+                const messageElement = document.getElementById("message");
+
+                if (response.ok) {
+                    messageElement.textContent = "✅ Data sent successfully!";
+                    messageElement.style.color = "green";
+                } else {
+                    messageElement.textContent = "❌ Error sending data!";
+                    messageElement.style.color = "red";
+                }
+            } catch (error) {
+                console.error("Request failed", error);
+                document.getElementById("message").textContent = "❌ Network error!";
+            }
         });
-
-        if (response.ok) {
-            alert("Data sent successfully!");
-        } else {
-            alert("Error sending data!");
-        }
-    } catch (error) {
-        console.error("Request failed", error);
-    }
-}
-
     </script>
 </body>
 </html>
